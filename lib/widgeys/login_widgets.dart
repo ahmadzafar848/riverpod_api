@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_api/main.dart';
 import 'package:riverpod_api/models/LoginModel.dart';
+import 'package:riverpod_api/screens/signup_screen.dart';
 
 class LoginUI extends ConsumerWidget {
   LoginUI({Key? key}) : super(key: key);
@@ -104,6 +105,37 @@ class LoginUI extends ConsumerWidget {
             color: Colors.blue,
             child: Center(
               child: Text('Login'),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: height * 0.05,
+        ),
+        SizedBox(
+          height: height * 0.1,
+          child: Center(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: EdgeInsets.only(right: width * 0.05),
+                child: GestureDetector(
+                  onTap: () {
+                    ref.read(signUpProvider.notifier).signupInitially();
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return SignUpScreen();
+                      },
+                    ));
+                  },
+                  child: Text(
+                    'For SignUp,Click Here',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: height * 0.03,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
             ),
           ),
         )

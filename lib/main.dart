@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_api/app_providers/album_provider.dart';
 import 'package:riverpod_api/app_providers/login_provider.dart';
+import 'package:riverpod_api/app_providers/signup_provider.dart';
 import 'package:riverpod_api/screens/login_screen.dart';
 
 final albumProvider =
@@ -9,6 +10,8 @@ final albumProvider =
 
 final loginProvider =
     StateNotifierProvider<LoginNotifier, LoginState>((ref) => LoginNotifier());
+final signUpProvider = StateNotifierProvider<SignUpNotifier, SignUpState>(
+    (ref) => SignUpNotifier());
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));

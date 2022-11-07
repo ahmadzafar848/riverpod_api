@@ -15,7 +15,7 @@ class SignUpModel {
   String? email;
   String? password;
   String? displayName;
-  int? loginBy;
+  String? loginBy;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

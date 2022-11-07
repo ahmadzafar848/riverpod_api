@@ -12,23 +12,41 @@ class SignUpLoadingState extends SignUpState {}
 
 class SignUpLoadedState extends SignUpState {
   final String message;
+
   SignUpLoadedState({required this.message});
 }
 
 class SignUpFailedState extends SignUpState {
   final String message;
+
   SignUpFailedState({required this.message});
 }
 
-class SignUpNotifier extends StateNotifier {
+class SignUpNotifier extends StateNotifier<SignUpState> {
   ApiService apiService = ApiService();
+
   SignUpNotifier() : super(SignUpInitialState());
 
-  signup(SignUpModel model) {
+  signupInitially() {
+    state = SignUpInitialState();
+  }
+
+  signup(SignUpModel model) async {
     state = SignUpLoadingState();
     try {
-      apiService.signUpThroughForm(SignUpModel(email: model.email,password: model.password,displayName: model.displayName,loginBy: model.))
+      Map<String, dynamic> data = await apiService.signUpThroughForm(
+          SignUpModel(
+              email: model.email,
+              password: model.password,
+              displayName: model.displayName,
+              loginBy: model.loginBy));
+      if (data['Status'] == 'Client Inserted Successfully') {
+        state = SignUpLoadedState(message: 'SignUp Successfully');
+      } else {
+        state = SignUpFailedState(message: 'Something Went Wrong');
+      }
+    } catch (e) {
+      state = SignUpFailedState(message: e.toString());
     }
-    catch (e) {}
   }
 }
